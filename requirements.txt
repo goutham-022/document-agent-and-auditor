@@ -1,0 +1,17 @@
+# Agent & LLM
+langgraph
+langchain-google-genai
+python-dotenv
+
+# API Layer & File Upload
+fastapi
+uvicorn[standard]
+python-multipart
+
+# Document Parsing
+pypdf
+
+# Database & Vector Store
+sqlalchemy
+asyncpg
+pgvector

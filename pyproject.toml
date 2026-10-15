@@ -1,0 +1,28 @@
+[project]
+name = "document-agent-and-auditor"
+version = "0.1.0"
+description = "Add your description here"
+readme = "README.md"
+authors = [
+    { name = "goutham", email = "imgoutham.022@gmail.com" }
+]
+requires-python = ">=3.12"
+dependencies = [
+    "asyncpg>=0.32.0",
+    "fastapi>=0.143.0",
+    "langchain-google-genai>=4.4.2",
+    "langgraph>=1.2.15",
+    "pgvector>=0.5.1",
+    "pypdf>=6.20.1",
+    "python-dotenv>=1.2.4",
+    "python-multipart>=0.0.32",
+    "sqlalchemy>=2.1.4",
+    "uvicorn[standard]>=0.54.0",
+]
+
+[project.scripts]
+document-agent-and-auditor = "document_agent_and_auditor:main"
+
+[build-system]
+requires = ["uv_build>=0.12.5,<0.13.0"]
+build-backend = "uv_build"
