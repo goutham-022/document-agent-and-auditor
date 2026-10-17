@@ -8,4 +8,12 @@ class DocumentState(BaseModel):
     summary: str | None = None
     feedback: str | None = None
     status: Literal["approved", "rejected"] | None = None
+    maximum_iteration: int = 3
     iteration_count: int = 0
+
+
+class AuditResponse(BaseModel):
+    feedback: str | None = None
+    status: Literal["approved", "rejected"]
+    
+    
