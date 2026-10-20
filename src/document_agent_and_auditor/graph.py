@@ -50,7 +50,18 @@ workflow.add_edge("db_writer", END)
 app = workflow.compile()
 
 if __name__ == "__main__":
-    png_bytes = app.get_graph().draw_mermaid_png()
-    with open("graph.png", "wb") as f:
-        f.write(png_bytes)
-    print("Graph saved as graph.png!")
+    # png_bytes = app.get_graph().draw_mermaid_png()
+    # with open("graph.png", "wb") as f:
+    #     f.write(png_bytes)
+    # print("Graph saved as graph.png!")
+    initial_state = DocumentState(file_path="sample_testing.txt")
+    final_state = app.invoke(initial_state)
+    print("\n" + "="*40)
+    print("       WORKFLOW EXECUTION COMPLETE")
+    print("="*40)
+    print(f"Final Status:     {final_state['status']}")
+    print(f"Total Iterations: {final_state['iteration_count']}")
+    print(f"Auditor Feedback: {final_state['feedback']}")
+    print(f"Summary Length:   {len(final_state['summary'])} characters")
+    print(f"Saved to:         summary_output.md")
+    print("="*40)
