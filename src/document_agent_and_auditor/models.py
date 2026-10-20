@@ -15,5 +15,4 @@ class DocumentState(BaseModel):
 class AuditResponse(BaseModel):
     feedback: str | None = None
     status: Literal["approved", "rejected"]
-    
-    
+

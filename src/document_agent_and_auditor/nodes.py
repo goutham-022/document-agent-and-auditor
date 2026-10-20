@@ -34,7 +34,17 @@ def summarizer(state: DocumentState) -> dict:
             ("human", revision_text),
         ]
     response = llm.invoke(messages)
-    return {"summary": response.content}
+    
+    summary_text = (
+        response.content[0]["text"]
+        if isinstance(response.content, list) and len(response.content) > 0 and isinstance(response.content[0], dict)
+        else str(response.content)
+    )
+
+    with open("summary_output.md", "w", encoding="utf-8") as f:
+        f.write(summary_text)
+
+    return {"summary": summary_text}
     
 def auditor(state: DocumentState) -> dict:
     llm = get_llm_factory("medium").get_llm()
@@ -55,10 +65,32 @@ def auditor(state: DocumentState) -> dict:
     }
 
 def human_reviewer(state: DocumentState) -> dict:
-    pass
+    print(f"\n⚠️ ESCALATION: Document reached maximum iterations ({state.maximum_iteration}) without approval.")
+    print(f"Auditor's Last Feedback: {state.feedback}")
+    print("*"*50)
+    print("👉 Please review the draft in 'summary_output.md' before proceeding.\n")
+
+    decision = input("Admin Decision (approve / reject): ").strip().lower()
+
+    while decision not in ["approve", "reject"]:
+        print(f"❌ Invalid decision: {decision}. Please try again.")
+        decision = input("Admin Decision (approve / reject): ").strip().lower()
+
+    if decision == "approve":
+        return {"status": "approved", "feedback": None}
+    else:
+        admin_feedback = input("Enter revision instructions for the summarizer: ")
+        return {
+            "status": "rejected",
+            "feedback": admin_feedback,
+            "iteration_count": 0,
+        }
+
 
 def db_writer(state: DocumentState) -> dict:
-    pass
+    print("\n--- DB Writer Node ---")
+    print("Saving approved summary to database... (PostgreSQL / pgvector yet to be configured)")
+    return {}
 
 
 if __name__ == "__main__":
@@ -71,16 +103,8 @@ if __name__ == "__main__":
     print("\n--- 2. Testing Summarizer Node ---")
     summary_result = summarizer(state)
     state.summary = summary_result["summary"]
-
-    full_text = (
-        state.summary[0]["text"]
-        if isinstance(state.summary, list)
-        else str(state.summary)
-    )
-    with open("summary_output.md", "w", encoding="utf-8") as f:
-        f.write(full_text)
-    print("Full summary saved to summary_output.md!")
-    print("Preview:\n" + full_text[:120] + "...\n")
+    print(f"Summary generated ({len(state.summary)} chars) and saved to summary_output.md!")
+    print("Preview:\n" + state.summary[:120] + "...\n")
 
     # After summary_result:
     print("--- 3. Testing Auditor Node ---")
