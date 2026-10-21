@@ -12,6 +12,7 @@ python-multipart
 pypdf
 
 # Database & Vector Store
-sqlalchemy
+sqlalchemy[asyncio]
+greenlet
 asyncpg
 pgvector

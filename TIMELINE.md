@@ -30,12 +30,13 @@
 | Day | Date | Task / Milestone | Status | Notes / Reason |
 | :---: | :---: | :--- | :---: | :--- |
 | **Day 8** | **Oct 20** | **Graph Assembly (`graph.py`)**<br>• Design & initialize `StateGraph(DocumentState)`<br>• Register all 5 nodes<br>• Add entrypoint and linear flow edges | ✅ Completed | Fully assembled, conditional routers (`route_after_audit`, `route_after_human_review`) implemented, compiled, and visual graph verified. |
-| **Day 9** | **Oct 21** | **Conditional Router (`should_continue`)**<br>• Implement conditional edge logic from `auditor`<br>• Loop: `rejected` & count < 3 $\rightarrow$ `summarizer`<br>• Escalation: `rejected` & count $\ge$ 3 $\rightarrow$ `human_reviewer`<br>• Success: `approved` $\rightarrow$ `db_writer` | ⏹️ Pending | |
-| **Day 10** | **Oct 22** | **End-to-End Agent Verification**<br>• Test happy path (instant approval)<br>• Test reflection loop (revision via feedback)<br>• Test max-iteration escalation path | ⏹️ Pending | |
-| **Day 11** | **Oct 23** | **Test Refactoring & Week 1-2 Git Milestone**<br>• Move test harness into `tests/test_nodes.py`<br>• Merge `feature-1` $\rightarrow$ `main`<br>• Create `feature-2-db` | ⏹️ Pending | |
-| **Day 12** | **Oct 24** | **PostgreSQL + pgvector Setup (`db.py`)**<br>• Start PostgreSQL with `pgvector`<br>• Configure async connection via SQLAlchemy / `asyncpg` | ⏹️ Pending | |
-| **Day 13** | **Oct 25** | **Database Schema & Embedding Factory**<br>• Add Gemini text embeddings (`text-embedding-004`) to `llm_factory.py`<br>• Define table schema (metadata, text, summary, vector column) | ⏹️ Pending | |
+| **Day 9** | **Oct 21** | **Conditional Router (`should_continue`)**<br>• Implement conditional edge logic from `auditor`<br>• Loop: `rejected` & count < 3 $\rightarrow$ `summarizer`<br>• Escalation: `rejected` & count $\ge$ 3 $\rightarrow$ `human_reviewer`<br>• Success: `approved` $\rightarrow$ `db_writer` | ✅ Completed | Implemented `route_after_audit` (with reflection & escalation bounds) and `route_after_human_review`. Completed: Oct 20, 2026. |
+| **Day 10** | **Oct 22** | **End-to-End Agent Verification**<br>• Test happy path (instant approval)<br>• Test reflection loop (revision via feedback)<br>• Test max-iteration escalation path | ✅ Completed | Verified all 3 execution paths (Happy Path, Reflection Loop, and Human Escalation). Completed: Oct 20, 2026. |
+| **Day 11** | **Oct 23** | **Formal Test Refactoring (Deferred to Week 4)**<br>• Unit/integration tests with `pytest` moved to Week 4 alongside CI/CD<br>• Merge `feature-1` $\rightarrow$ `main` scheduled after `db_writer` persistence verification | ⏹️ Pending | Deferred to align with CI/CD and finalize features first. |
+| **Day 12** | **Oct 24** | **PostgreSQL + pgvector Setup (`db.py`)**<br>• Start PostgreSQL with `pgvector` in Docker (port 5433)<br>• Configure async connection via SQLAlchemy / `asyncpg` | ✅ Completed | Docker container verified, `.env` configured, async engine and connection pool verified. Completed: Oct 21, 2026. |
+| **Day 13** | **Oct 25** | **Database Schema & Embedding Factory**<br>• Define table schema (UUID, metadata, text, summary, `Vector(768)`)<br>• Execute `init_db()` DDL migration<br>• Add Gemini text embeddings (`text-embedding-004`) to `llm_factory.py` | ⏳ In Progress | `DocumentRecord` schema defined with UUID & `Vector(768)`. `init_db()` successfully created table in Docker Postgres (Oct 21). Next: Embedding Factory. |
 | **Day 14** | **Oct 26** | **Wire `db_writer` Node to PostgreSQL**<br>• Update `db_writer` to generate summary embeddings<br>• Persist document, summary, and vectors to database | ⏹️ Pending | |
+
 
 ---
 

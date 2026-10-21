@@ -17,7 +17,8 @@
 | **Day 5** | **2026-10-17** | ~07:30 - 08:45 | ~1h 15m | • Created `models.py` (`DocumentState`, `AuditResponse`)<br>• Built `auditor` node with structured output evaluation<br>• Formatted and saved output to `summary_output.md`<br>• Created master timeline | `d56f5ae` ✅ Completed |
 | **Day 6** | **2026-10-18** | 06:20 - 07:15 | ~0h 55m | • Implemented `human_reviewer` node with admin escalation prompt<br>• Stubbed `db_writer` node<br>• Updated `summarizer` to auto-write clean text to `summary_output.md` | ✅ Completed |
 | **Day 7** | **2026-10-19** | — | 0h 00m | Missed session / Could not work | ⚠️ Missed session (0h) |
-| **Day 8** | **2026-10-20** | 06:56 - 08:15 | ~1h 20m | • Built and assembled `graph.py` (StateGraph, 5 nodes, linear & conditional edges)<br>• Implemented `route_after_audit` & `route_after_human_review`<br>• Compiled graph and generated `graph.png`<br>• Updated `architecture.md` with LangGraph concept roadmap | ✅ Completed |
+| **Day 8** | **2026-10-20** | 06:56-08:15, 17:57-19:10, 21:39-22:08 | ~3h 05m | • Built and assembled `graph.py` (StateGraph, 5 nodes, linear & conditional edges)<br>• Implemented `route_after_audit` & `route_after_human_review`<br>• Verified all 3 execution paths (Happy Path, Reflection Loop, Human Escalation)<br>• Generated `graph.png` and updated `architecture.md`<br>• Spun up `pgvector` Docker container, connected in pgAdmin & IDE, configured `.env`<br>• Began database connection architecture discussion (`db.py`) | ✅ Completed |
+| **Day 9** | **2026-10-21** | 05:21 - 08:15 | ~2h 55m | • Deep conceptual architecture dive: Vector DB vs RDBMS vs NoSQL, RAG vs Text-to-SQL, query generation vs vector distance<br>• Solved large-file storage dilemma (Object Storage URI pointer vs text bloat)<br>• Designed lean `DocumentRecord` schema (UUID PK, `file_path`, `summary`, `created_by`, `Vector(768)`, timestamps)<br>• Installed `greenlet` / updated `requirements.txt`<br>• Executed `init_db()` in `db.py` to enable `vector` extension and successfully create `documents` table in Docker Postgres | ✅ Completed |
 
 ---
 
@@ -26,4 +27,5 @@
 | Week | Days | Date Range | Target Hours | Logged Hours | Status |
 | :---: | :---: | :---: | :---: | :---: | :---: |
 | **Week 1** | Days 1 – 7 | Oct 13 – Oct 19 | 7h 00m | ~6h 25m | ✅ Finished |
-| **Week 2** | Days 8 – 14 | Oct 20 – Oct 26 | 7h 00m | *In Progress* | ⏳ Active |
+| **Week 2** | Days 8 – 14 | Oct 20 – Oct 26 | 7h 00m | ~6h 00m *(Active)* | ⏳ Ahead of Track |
+

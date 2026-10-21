@@ -10,13 +10,14 @@ requires-python = ">=3.12"
 dependencies = [
     "asyncpg>=0.32.0",
     "fastapi>=0.143.0",
+    "greenlet>=3.5.6",
     "langchain-google-genai>=4.4.2",
     "langgraph>=1.2.15",
     "pgvector>=0.5.1",
     "pypdf>=6.20.1",
     "python-dotenv>=1.2.4",
     "python-multipart>=0.0.32",
-    "sqlalchemy>=2.1.4",
+    "sqlalchemy[asyncio]>=2.1.4",
     "uvicorn[standard]>=0.54.0",
 ]
 
