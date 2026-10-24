@@ -19,6 +19,9 @@
 | **Day 7** | **2026-10-19** | — | 0h 00m | Missed session / Could not work | ⚠️ Missed session (0h) |
 | **Day 8** | **2026-10-20** | 06:56-08:15, 17:57-19:10, 21:39-22:08 | ~3h 05m | • Built and assembled `graph.py` (StateGraph, 5 nodes, linear & conditional edges)<br>• Implemented `route_after_audit` & `route_after_human_review`<br>• Verified all 3 execution paths (Happy Path, Reflection Loop, Human Escalation)<br>• Generated `graph.png` and updated `architecture.md`<br>• Spun up `pgvector` Docker container, connected in pgAdmin & IDE, configured `.env`<br>• Began database connection architecture discussion (`db.py`) | ✅ Completed |
 | **Day 9** | **2026-10-21** | 05:21 - 08:15 | ~2h 55m | • Deep conceptual architecture dive: Vector DB vs RDBMS vs NoSQL, RAG vs Text-to-SQL, query generation vs vector distance<br>• Solved large-file storage dilemma (Object Storage URI pointer vs text bloat)<br>• Designed lean `DocumentRecord` schema (UUID PK, `file_path`, `summary`, `created_by`, `Vector(768)`, timestamps)<br>• Installed `greenlet` / updated `requirements.txt`<br>• Executed `init_db()` in `db.py` to enable `vector` extension and successfully create `documents` table in Docker Postgres | ✅ Completed |
+| **Day 10** | **2026-10-22** | 05:01 - 05:54 | ~0h 55m | • Built `embedding_factory.py` with `EmbeddingsFactory` & `GeminiEmbeddings` using `gemini-embedding-001` (768 dimensions)<br>• Verified live vector generation with Google Gemini API<br>• Architected explicit `embedding_generator` node (Single Responsibility Principle) & updated `DocumentState`<br>• Updated conditional routing in `graph.py` and rendered fresh `graph.png`<br>• Implemented standard asynchronous `async def db_writer` node in `nodes.py` using `AsyncSessionLocal` and `DocumentRecord` | ✅ Completed |
+| **Day 11** | **2026-10-23** | 08:43-09:07, 14:33-14:40 | ~0h 35m | • Deep dive on Pydantic DTOs vs SQLAlchemy ORM Entities<br>• Explored Engine (connection pool) vs AsyncSessionLocal (transaction manager)<br>• Created educational `orm_vs_raw_sql_reference.py` comparing raw asyncpg vs SQLAlchemy ORM<br>• Clarified `CREATE EXTENSION vector` (Postgres server-side) vs `register_vector` (client-side) | ✅ Completed |
+| **Day 12** | **2026-10-24** | 05:44 - 06:35 | ~0h 50m | • Clarified `__tablename__`, `DeclarativeBase`, and `__abstract__ = True` base models<br>• Explored `Mapped[...]` type inference and persistent checkpointers vs RAM in LangGraph<br>• Updated `graph.py` to use asynchronous invocation (`await app.ainvoke`)<br>• Booted Docker `doc-agent-db` container<br>• Executed full end-to-end pipeline (Parser $\rightarrow$ Summarizer $\rightarrow$ Auditor $\rightarrow$ Embedder $\rightarrow$ DB Writer)<br>• Verified persisted document and 768-dim vector in PostgreSQL using pgAdmin Query Tool | ✅ Completed |
 
 ---
 
@@ -27,5 +30,6 @@
 | Week | Days | Date Range | Target Hours | Logged Hours | Status |
 | :---: | :---: | :---: | :---: | :---: | :---: |
 | **Week 1** | Days 1 – 7 | Oct 13 – Oct 19 | 7h 00m | ~6h 25m | ✅ Finished |
-| **Week 2** | Days 8 – 14 | Oct 20 – Oct 26 | 7h 00m | ~6h 00m *(Active)* | ⏳ Ahead of Track |
+| **Week 2** | Days 8 – 14 | Oct 20 – Oct 26 | 7h 00m | ~8h 20m *(Active)* | 🌟 Exceeded Target |
+
 

@@ -1,8 +1,13 @@
+import asyncio
+
 from pathlib import Path
 from pypdf import PdfReader
 from document_agent_and_auditor.models import DocumentState, AuditResponse
 from document_agent_and_auditor.llm_factory import get_llm_factory
 from document_agent_and_auditor.prompts import SUMMARIZER_PROMPT, SUMMARIZER_REVISION_PROMPT, AUDITOR_PROMPT
+from document_agent_and_auditor.embedding_factory import get_embeddings_factory
+from document_agent_and_auditor.db import AsyncSessionLocal, DocumentRecord
+
 
 def parser(state: DocumentState) -> dict:
     file_path = state.file_path
@@ -86,10 +91,32 @@ def human_reviewer(state: DocumentState) -> dict:
             "iteration_count": 0,
         }
 
+def embedding_generator(state: DocumentState) -> dict:
+    print("\n--- Embedding Generator Node ---")
+    embedding_generator = get_embeddings_factory("gemini")
+    embeddings = embedding_generator.get_embeddings().embed_query(state.summary)
+    return {"embeddings": embeddings}
 
-def db_writer(state: DocumentState) -> dict:
+
+async def db_writer(state: DocumentState) -> dict:
     print("\n--- DB Writer Node ---")
     print("Saving approved summary to database... (PostgreSQL / pgvector yet to be configured)")
+    file_path = state.file_path
+    summary = state.summary
+    embeddings = state.embeddings
+
+    record = DocumentRecord(
+        file_path=file_path,
+        summary=summary,
+        embedding=embeddings,
+        created_by="agent",
+    )
+
+    async with AsyncSessionLocal() as session:
+        session.add(record)
+        await session.commit()
+    
+    print("Successfully persisted document and vector embedding to PostgreSQL!")
     return {}
 
 

@@ -34,8 +34,10 @@
 | **Day 10** | **Oct 22** | **End-to-End Agent Verification**<br>• Test happy path (instant approval)<br>• Test reflection loop (revision via feedback)<br>• Test max-iteration escalation path | ✅ Completed | Verified all 3 execution paths (Happy Path, Reflection Loop, and Human Escalation). Completed: Oct 20, 2026. |
 | **Day 11** | **Oct 23** | **Formal Test Refactoring (Deferred to Week 4)**<br>• Unit/integration tests with `pytest` moved to Week 4 alongside CI/CD<br>• Merge `feature-1` $\rightarrow$ `main` scheduled after `db_writer` persistence verification | ⏹️ Pending | Deferred to align with CI/CD and finalize features first. |
 | **Day 12** | **Oct 24** | **PostgreSQL + pgvector Setup (`db.py`)**<br>• Start PostgreSQL with `pgvector` in Docker (port 5433)<br>• Configure async connection via SQLAlchemy / `asyncpg` | ✅ Completed | Docker container verified, `.env` configured, async engine and connection pool verified. Completed: Oct 21, 2026. |
-| **Day 13** | **Oct 25** | **Database Schema & Embedding Factory**<br>• Define table schema (UUID, metadata, text, summary, `Vector(768)`)<br>• Execute `init_db()` DDL migration<br>• Add Gemini text embeddings (`text-embedding-004`) to `llm_factory.py` | ⏳ In Progress | `DocumentRecord` schema defined with UUID & `Vector(768)`. `init_db()` successfully created table in Docker Postgres (Oct 21). Next: Embedding Factory. |
-| **Day 14** | **Oct 26** | **Wire `db_writer` Node to PostgreSQL**<br>• Update `db_writer` to generate summary embeddings<br>• Persist document, summary, and vectors to database | ⏹️ Pending | |
+| **Day 13** | **Oct 25** | **Database Schema & Embedding Factory**<br>• Define table schema (UUID, metadata, text, summary, `Vector(768)`)<br>• Execute `init_db()` DDL migration<br>• Add Gemini text embeddings (`gemini-embedding-001`, 768-dim) in `embedding_factory.py` | ✅ Completed | Schema & table created in Docker Postgres. Embedding factory built & verified live with Google Gemini. Completed: Oct 22, 2026. |
+| **Day 14** | **Oct 26** | **Wire `db_writer` & `embedding_generator` Nodes to PostgreSQL**<br>• Added explicit `embedding_generator` node to graph<br>• Implemented async `db_writer` to persist document, summary, and vectors to database | ✅ Completed | Executed full async pipeline end-to-end (`app.ainvoke`). Verified row and 768-dim vector in PostgreSQL via pgAdmin. Completed: Oct 24, 2026. |
+
+
 
 
 ---

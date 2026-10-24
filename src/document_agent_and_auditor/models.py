@@ -10,6 +10,7 @@ class DocumentState(BaseModel):
     status: Literal["approved", "rejected"] | None = None
     maximum_iteration: int = 3
     iteration_count: int = 0
+    embeddings: list[float] | None = None
 
 
 class AuditResponse(BaseModel):
