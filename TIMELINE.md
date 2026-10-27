@@ -47,8 +47,8 @@
 
 | Day | Date | Task / Milestone | Status | Notes / Reason |
 | :---: | :---: | :--- | :---: | :--- |
-| **Day 15** | **Oct 27** | **Vector Similarity Search Query**<br>• Write cosine similarity search (`<=>` operator) in `db.py`<br>• Test top-$k$ retrieval | ⏹️ Pending | |
-| **Day 16** | **Oct 28** | **RAG Question-Answering Chain**<br>• Query $\rightarrow$ Embedding $\rightarrow$ Search $\rightarrow$ Synthesize response with citations | ⏹️ Pending | |
+| **Day 15** | **Oct 27** | **Vector Similarity Search Query**<br>• Write cosine distance search (`<=>` operator) in `db.py`<br>• Test top-$k$ retrieval and distance threshold filtering | ✅ Completed | Implemented `retrieve_relevant_documents` with `<= 0.6` cosine distance cutoff gate. Verified with relevant & irrelevant queries. |
+| **Day 16** | **Oct 28** | **RAG Question-Answering Chain**<br>• Query $\rightarrow$ Embedding $\rightarrow$ Search $\rightarrow$ Synthesize response with citations | ✅ Completed | Implemented `answer_document_query` in `rag.py`. Built grounded `RAG_QA_PROMPT`, zero-result short-circuit, and low-temp Gemini synthesis. |
 | **Day 17** | **Oct 29** | **FastAPI Integration (`api.py`)**<br>• `POST /upload` (runs agent)<br>• `POST /query` (runs RAG)<br>• Test with Swagger UI | ⏹️ Pending | |
 | **Day 18** | **Oct 30** | **Input Guardrails & PII Protection**<br>• PII detection/masking<br>• Prompt injection protection before parser | ⏹️ Pending | |
 | **Day 19** | **Oct 31** | **Evals Setup (Ragas / DeepEval)**<br>• Setup evaluation library<br>• Create benchmark dataset of documents | ⏹️ Pending | |

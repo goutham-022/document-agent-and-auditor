@@ -22,6 +22,9 @@
 | **Day 10** | **2026-10-22** | 05:01 - 05:54 | ~0h 55m | • Built `embedding_factory.py` with `EmbeddingsFactory` & `GeminiEmbeddings` using `gemini-embedding-001` (768 dimensions)<br>• Verified live vector generation with Google Gemini API<br>• Architected explicit `embedding_generator` node (Single Responsibility Principle) & updated `DocumentState`<br>• Updated conditional routing in `graph.py` and rendered fresh `graph.png`<br>• Implemented standard asynchronous `async def db_writer` node in `nodes.py` using `AsyncSessionLocal` and `DocumentRecord` | ✅ Completed |
 | **Day 11** | **2026-10-23** | 08:43-09:07, 14:33-14:40 | ~0h 35m | • Deep dive on Pydantic DTOs vs SQLAlchemy ORM Entities<br>• Explored Engine (connection pool) vs AsyncSessionLocal (transaction manager)<br>• Created educational `orm_vs_raw_sql_reference.py` comparing raw asyncpg vs SQLAlchemy ORM<br>• Clarified `CREATE EXTENSION vector` (Postgres server-side) vs `register_vector` (client-side) | ✅ Completed |
 | **Day 12** | **2026-10-24** | 05:44 - 06:35 | ~0h 50m | • Clarified `__tablename__`, `DeclarativeBase`, and `__abstract__ = True` base models<br>• Explored `Mapped[...]` type inference and persistent checkpointers vs RAM in LangGraph<br>• Updated `graph.py` to use asynchronous invocation (`await app.ainvoke`)<br>• Booted Docker `doc-agent-db` container<br>• Executed full end-to-end pipeline (Parser $\rightarrow$ Summarizer $\rightarrow$ Auditor $\rightarrow$ Embedder $\rightarrow$ DB Writer)<br>• Verified persisted document and 768-dim vector in PostgreSQL using pgAdmin Query Tool | ✅ Completed |
+| **Day 13** | **2026-10-25** | 05:58 - 07:08 | ~1h 10m | • Verified vector search with cosine distance filter (`search_similar_documents` in `db.py`)<br>• Deep dive on raw SQL `<=>` operator vs boolean conditions, and empirical threshold calibration (0.6)<br>• Added grounded `RAG_QA_PROMPT` in `prompts.py`<br>• Began architecting RAG service layer (`answer_document_query` in `rag.py`) | ✅ Completed |
+| **Day 14** | **2026-10-26** | — | 0h 00m | Missed session / Could not work | ⚠️ Missed session (0h) |
+| **Day 15** | **2026-10-27** | 08:45 - 09:30 | ~0h 45m | • Completed RAG service layer (`answer_document_query` in `rag.py`)<br>• Renamed DB function to `retrieve_relevant_documents`<br>• Context augmentation with source citations and low-temperature Gemini synthesis<br>• Verified end-to-end RAG with relevant query and short-circuit zero-result query | ✅ Completed |
 
 ---
 
@@ -30,6 +33,7 @@
 | Week | Days | Date Range | Target Hours | Logged Hours | Status |
 | :---: | :---: | :---: | :---: | :---: | :---: |
 | **Week 1** | Days 1 – 7 | Oct 13 – Oct 19 | 7h 00m | ~6h 25m | ✅ Finished |
-| **Week 2** | Days 8 – 14 | Oct 20 – Oct 26 | 7h 00m | ~8h 20m *(Active)* | 🌟 Exceeded Target |
+| **Week 2** | Days 8 – 14 | Oct 20 – Oct 26 | 7h 00m | ~9h 30m | 🌟 Exceeded Target |
+| **Week 3** | Days 15 – 21 | Oct 27 – Nov 02 | 7h 00m | ~0h 45m *(Active)* | 🔄 In Progress |
 
 

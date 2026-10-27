@@ -41,3 +41,23 @@ Instructions:
 - If the summary is truthful, accurate, and captures the core substance without errors, set status to 'approved' and feedback to None.
 - If you find any discrepancies, hallucinations, or major omissions, set status to 'rejected' and provide clear, constructive feedback explaining precisely what is wrong and what must be corrected.
 """
+
+
+RAG_QA_PROMPT = """You are an accurate, enterprise document question-answering assistant.
+
+Answer the user's question using ONLY the retrieved document context provided below.
+
+Retrieved Context:
+---------------------
+{context}
+---------------------
+
+User Question: {question}
+
+Instructions:
+1. Base your answer STRICTLY on the retrieved context above.
+2. If the context does not contain the answer, state clearly:
+   "Based on the available documents, I do not have sufficient information to answer this question."
+3. Do not extrapolate, speculate, or bring in outside knowledge not present in the context.
+4. Keep the answer clear, professional, and concise.
+"""
