@@ -64,7 +64,7 @@ def auditor(state: DocumentState) -> dict:
     response: AuditResponse = evaluator.invoke(messages)
 
     return {
-        "status": response.status,
+        "audit_status": response.status,
         "feedback": response.feedback,
         "iteration_count": state.iteration_count + 1,
     }
@@ -75,18 +75,24 @@ def human_reviewer(state: DocumentState) -> dict:
     print("*"*50)
     print("👉 Please review the draft in 'summary_output.md' before proceeding.\n")
 
-    decision = input("Admin Decision (approve / reject): ").strip().lower()
+    decision = input("Admin Decision (approve / reject / abort): ").strip().lower()
 
-    while decision not in ["approve", "reject"]:
+    while decision not in ["approve", "reject", "abort"]:
         print(f"❌ Invalid decision: {decision}. Please try again.")
-        decision = input("Admin Decision (approve / reject): ").strip().lower()
+        decision = input("Admin Decision (approve / reject / abort): ").strip().lower()
 
     if decision == "approve":
-        return {"status": "approved", "feedback": None}
+        return {"audit_status": "approved", "feedback": None}
+    elif decision == "abort":
+        return {
+            "audit_status": "rejected",
+            "doc_upload_status": "failed",
+            "error_message": "Document processing aborted by admin.",
+        }
     else:
         admin_feedback = input("Enter revision instructions for the summarizer: ")
         return {
-            "status": "rejected",
+            "audit_status": "rejected",
             "feedback": admin_feedback,
             "iteration_count": 0,
         }
@@ -100,7 +106,6 @@ def embedding_generator(state: DocumentState) -> dict:
 
 async def db_writer(state: DocumentState) -> dict:
     print("\n--- DB Writer Node ---")
-    print("Saving approved summary to database... (PostgreSQL / pgvector yet to be configured)")
     file_path = state.file_path
     summary = state.summary
     embeddings = state.embeddings
@@ -112,12 +117,18 @@ async def db_writer(state: DocumentState) -> dict:
         created_by="agent",
     )
 
-    async with AsyncSessionLocal() as session:
-        session.add(record)
-        await session.commit()
-    
-    print("Successfully persisted document and vector embedding to PostgreSQL!")
-    return {}
+    try:
+        async with AsyncSessionLocal() as session:
+            session.add(record)
+            await session.commit()
+        print("Successfully persisted document and vector embedding to PostgreSQL!")
+        return {"doc_upload_status": "success"}
+    except Exception as e:
+        print(f"❌ Failed to persist document to database: {e}")
+        return {
+            "doc_upload_status": "failed",
+            "error_message": f"Database persistence failed: {str(e)}",
+        }
 
 
 if __name__ == "__main__":
@@ -136,6 +147,7 @@ if __name__ == "__main__":
     # After summary_result:
     print("--- 3. Testing Auditor Node ---")
     audit_result = auditor(state)
-    print("Audit Status:", audit_result["status"])
+    print("Audit Status:", audit_result["audit_status"])
     print("Audit Feedback:", audit_result["feedback"])
     print("Iteration Count:", audit_result["iteration_count"])
+

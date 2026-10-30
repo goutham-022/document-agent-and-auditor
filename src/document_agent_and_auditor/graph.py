@@ -15,23 +15,25 @@ workflow.add_node("db_writer", db_writer)
 
 
 def route_after_audit(state: DocumentState) -> str:
-    if state.status == "rejected":
+    if state.audit_status == "rejected":
         if state.iteration_count < state.maximum_iteration:
             return "summarizer"
         else:
             return "human_reviewer"
-    elif state.status == "approved":
+    elif state.audit_status == "approved":
         return "embedding_generator"
     else:
-        raise ValueError(f"Unknown document status encountered: {state.status}")
+        raise ValueError(f"Unknown audit status encountered: {state.audit_status}")
 
 def route_after_human_review(state: DocumentState) -> str:
-    if state.status == "rejected":
-        return "summarizer"
-    elif state.status == "approved":
+    if state.doc_upload_status == "failed":
+        return END
+    elif state.audit_status == "approved":
         return "embedding_generator"
+    elif state.audit_status == "rejected":
+        return "summarizer"
     else:
-        raise ValueError(f"Unknown document status encountered: {state.status}")
+        raise ValueError(f"Unknown state in human review: audit_status={state.audit_status}, upload_status={state.doc_upload_status}")
 
 workflow.add_edge(START, "parser")
 workflow.add_edge("parser", "summarizer")
@@ -44,7 +46,8 @@ workflow.add_conditional_edges("auditor", route_after_audit, [
 
 workflow.add_conditional_edges("human_reviewer", route_after_human_review, [
     "summarizer",
-    "embedding_generator"
+    "embedding_generator",
+    END
 ])
 workflow.add_edge("embedding_generator", "db_writer")
 # TODO: Connect actual PostgreSQL + pgvector persistence in Week 2 once DB is configured

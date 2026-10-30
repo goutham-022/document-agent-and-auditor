@@ -25,15 +25,18 @@
 | **Day 13** | **2026-10-25** | 05:58 - 07:08 | ~1h 10m | • Verified vector search with cosine distance filter (`search_similar_documents` in `db.py`)<br>• Deep dive on raw SQL `<=>` operator vs boolean conditions, and empirical threshold calibration (0.6)<br>• Added grounded `RAG_QA_PROMPT` in `prompts.py`<br>• Began architecting RAG service layer (`answer_document_query` in `rag.py`) | ✅ Completed |
 | **Day 14** | **2026-10-26** | — | 0h 00m | Missed session / Could not work | ⚠️ Missed session (0h) |
 | **Day 15** | **2026-10-27** | 08:45 - 09:30 | ~0h 45m | • Completed RAG service layer (`answer_document_query` in `rag.py`)<br>• Renamed DB function to `retrieve_relevant_documents`<br>• Context augmentation with source citations and low-temperature Gemini synthesis<br>• Verified end-to-end RAG with relevant query and short-circuit zero-result query | ✅ Completed |
+| **Day 16** | **2026-10-28** | 05:11-05:58, 17:24-19:02 | ~2h 25m | • Built modular FastAPI architecture (`main.py` lifespan, `routes.py` APIRouter)<br>• Created Pydantic DTOs (`QueryRequest`, `QueryResponse`, `IngestionResponse`)<br>• Resolved Gemini multimodal block parsing bug in `rag.py`<br>• Live-verified `POST /documents/query` via Swagger UI (positive & negative cases)<br>• Built `service.py` clean service layer with UUID prefixing<br>• Architectural refactor: separated `audit_status` (evaluator verdict) from `doc_upload_status` (DB persistence proof in `db_writer`) across `models.py`, `nodes.py`, `graph.py`, and `service.py`<br>• Completed `POST /documents/upload` endpoint | ✅ Completed |
+| **Day 17** | **2026-10-29** | 07:04 - 08:00 | ~0h 55m | • Deep dive on pipeline fault tolerance, failure propagation, and lifecycle states<br>• Enhanced `DocumentState.doc_upload_status: Literal["pending", "success", "failed"] = "pending"`<br>• Implemented `abort` exit in `human_reviewer` node and routed directly to `END` in `graph.py`<br>• Wrapped `db_writer` in try-except to catch DB crashes and set `doc_upload_status = "failed"`<br>• Identified critical audit feedback vs system error leak bug; designed explicit error reporting | ✅ Completed |
+| **Day 18** | **2026-10-30** | 16:24 - 17:05 | ~0h 40m | • Added `error_message: str | None = None` to `DocumentState` for clean failure attribution<br>• Updated `db_writer` and `human_reviewer` (`abort`) to populate exact `error_message`<br>• Implemented API perimeter guardrail in `service.py` to reject unsupported file formats before agent invocation<br>• Successfully tested `POST /documents/upload` live in Swagger UI (unsupported file rejection + `karnataka_history.txt` end-to-end ingestion & RAG query) | ✅ Completed |
 
 ---
 
 ## 📊 Summary by Week
 
 | Week | Days | Date Range | Target Hours | Logged Hours | Status |
-| :---: | :---: | :---: | :---: | :---: | :---: |
+| :---: | :---: | :---: | :---: | :---: | :--- |
 | **Week 1** | Days 1 – 7 | Oct 13 – Oct 19 | 7h 00m | ~6h 25m | ✅ Finished |
 | **Week 2** | Days 8 – 14 | Oct 20 – Oct 26 | 7h 00m | ~9h 30m | 🌟 Exceeded Target |
-| **Week 3** | Days 15 – 21 | Oct 27 – Nov 02 | 7h 00m | ~0h 45m *(Active)* | 🔄 In Progress |
+| **Week 3** | Days 15 – 21 | Oct 27 – Nov 02 | 7h 00m | ~4h 45m *(Active)* | 🔄 In Progress |
 
 
