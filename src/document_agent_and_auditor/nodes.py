@@ -7,6 +7,7 @@ from document_agent_and_auditor.llm_factory import get_llm_factory
 from document_agent_and_auditor.prompts import SUMMARIZER_PROMPT, SUMMARIZER_REVISION_PROMPT, AUDITOR_PROMPT
 from document_agent_and_auditor.embedding_factory import get_embeddings_factory
 from document_agent_and_auditor.db import AsyncSessionLocal, DocumentRecord
+from document_agent_and_auditor.guardrails import detect_prompt_injection, mask_pii
 
 
 def parser(state: DocumentState) -> dict:
@@ -20,7 +21,13 @@ def parser(state: DocumentState) -> dict:
             text = f.read()
     else:
         raise ValueError(f"Unsupported file format: {path.suffix}")
-    return {"document_content": text}
+    if detect_prompt_injection(text):
+        return {
+            "doc_upload_status": "failed",
+            "error_message": "Security error: Malicious prompt injection pattern detected in document.",
+        }
+    masked_text = mask_pii(text)
+    return {"document_content": masked_text}
 
 def summarizer(state: DocumentState) -> dict:
     llm = get_llm_factory("low").get_llm()

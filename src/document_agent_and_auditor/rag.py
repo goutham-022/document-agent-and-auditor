@@ -3,14 +3,27 @@ from document_agent_and_auditor.llm_factory import get_llm_factory
 from document_agent_and_auditor.db import retrieve_relevant_documents
 from document_agent_and_auditor.embedding_factory import get_embeddings_factory
 from document_agent_and_auditor.models import QueryResponse
+from document_agent_and_auditor.guardrails import detect_prompt_injection, mask_pii
+
+async def _check_guardrails(question: str):
+    if detect_prompt_injection(question):
+        return QueryResponse(
+            answer="Security alert: The query contains a potential prompt injection pattern and was rejected.",
+            sources=[],
+        )
 
 async def answer_document_query(
     question: str,
     top_k: int = 3,
     distance_threshold: float = 0.6
 ) -> QueryResponse:
+    guardrail_response = await _check_guardrails(question)
+    if guardrail_response is not None:
+        return guardrail_response
+    masked_question = mask_pii(question)
+    # print(">>>>masked_question->", masked_question)
     embedding_generator = get_embeddings_factory("gemini")
-    user_query_embeddings = embedding_generator.get_embeddings().embed_query(question)
+    user_query_embeddings = embedding_generator.get_embeddings().embed_query(masked_question)
     documents = await retrieve_relevant_documents(user_query_embeddings, top_k, distance_threshold)
     if not documents:
         return  QueryResponse(
@@ -19,7 +32,7 @@ async def answer_document_query(
         )
     context = "\n\n".join([f"Source: {doc.file_path}\n{doc.summary}" for doc in documents])
     # print("context->", context[:200])
-    rag_prompt_with_context = RAG_QA_PROMPT.format(context=context, question=question)
+    rag_prompt_with_context = RAG_QA_PROMPT.format(context=context, question=masked_question)
     messages = [
         ("human", rag_prompt_with_context),
     ]

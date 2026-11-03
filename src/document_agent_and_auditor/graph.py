@@ -35,8 +35,14 @@ def route_after_human_review(state: DocumentState) -> str:
     else:
         raise ValueError(f"Unknown state in human review: audit_status={state.audit_status}, upload_status={state.doc_upload_status}")
 
+def check_guardrail(state: DocumentState) -> str:
+    if state.doc_upload_status == "failed":
+        return END
+    return "summarizer"
+
+
 workflow.add_edge(START, "parser")
-workflow.add_edge("parser", "summarizer")
+workflow.add_conditional_edges("parser", check_guardrail,["summarizer", END])
 workflow.add_edge("summarizer", "auditor")
 workflow.add_conditional_edges("auditor", route_after_audit, [
     "summarizer",

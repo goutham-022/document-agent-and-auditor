@@ -1,0 +1,6 @@
+Customer Service Memorandum
+Account Manager: Alice Smith
+Contact: alice.smith@enterprise.org
+Phone: 415-555-2671
+Aadhaar ID: 1234 5678 9012
+Notes: Customer requested account migration to new region.
