@@ -27,6 +27,7 @@ class QueryRequest(BaseModel):
 class QueryResponse(BaseModel):
     answer: str
     sources: list[str]
+    contexts: list[str] = []
 
 
 class IngestionResponse(BaseModel):

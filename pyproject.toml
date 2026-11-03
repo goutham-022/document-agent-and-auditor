@@ -9,14 +9,18 @@ authors = [
 requires-python = ">=3.12"
 dependencies = [
     "asyncpg>=0.32.0",
+    "datasets>=5.1.0",
     "fastapi>=0.143.0",
     "greenlet>=3.5.6",
+    "langchain-community<0.4.0",
     "langchain-google-genai>=4.4.2",
+    "langchain-google-vertexai>=3.2.5",
     "langgraph>=1.2.15",
     "pgvector>=0.5.1",
     "pypdf>=6.20.1",
     "python-dotenv>=1.2.4",
     "python-multipart>=0.0.32",
+    "ragas>=0.4.3",
     "sqlalchemy[asyncio]>=2.1.4",
     "uvicorn[standard]>=0.54.0",
 ]

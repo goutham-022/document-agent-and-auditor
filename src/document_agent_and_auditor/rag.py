@@ -47,7 +47,8 @@ async def answer_document_query(
         answer_text = str(response.content)
     return QueryResponse(
         answer=answer_text,
-        sources=[doc.file_path for doc in documents]
+        sources=[doc.file_path for doc in documents],
+        contexts=[doc.summary for doc in documents]
     )
 
 

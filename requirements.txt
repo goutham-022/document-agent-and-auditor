@@ -1,6 +1,7 @@
 # Agent & LLM
 langgraph
 langchain-google-genai
+langchain-community
 python-dotenv
 
 # API Layer & File Upload
@@ -16,3 +17,6 @@ sqlalchemy[asyncio]
 greenlet
 asyncpg
 pgvector
+
+ragas
+datasets

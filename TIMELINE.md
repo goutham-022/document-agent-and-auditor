@@ -51,9 +51,9 @@
 | **Day 16** | **Oct 28** | **RAG Question-Answering Chain**<br>• Query $\rightarrow$ Embedding $\rightarrow$ Search $\rightarrow$ Synthesize response with citations | ✅ Completed | Implemented `answer_document_query` in `rag.py`. Built grounded `RAG_QA_PROMPT`, zero-result short-circuit, and low-temp Gemini synthesis. |
 | **Day 17** | **Oct 29** | **FastAPI Integration (`main.py`, `routes.py`, `service.py`)**<br>• `POST /upload` (runs agent)<br>• `POST /query` (runs RAG)<br>• Test with Swagger UI | ✅ Completed | Built modular FastAPI architecture, Pydantic DTOs, verified `/query` in Swagger UI, decoupled `service.py`, and refactored pipeline state. Completed: Oct 28, 2026. |
 | **Day 18** | **Oct 30** | **Input Guardrails & PII Protection**<br>• PII detection/masking<br>• Prompt injection protection before parser | ✅ Completed | Implemented file perimeter guardrail, prompt injection detection, and regex PII redaction across ingestion and query. Completed: Nov 03, 2026. |
-| **Day 19** | **Oct 31** | **Evals Setup (Ragas / DeepEval)**<br>• Setup evaluation library<br>• Create benchmark dataset of documents | ⏹️ Pending | |
-| **Day 20** | **Nov 01** | **Benchmark Suite & Auditor Calibration**<br>• Measure Faithfulness & Answer Relevance<br>• Tune auditor thresholds | ⏹️ Pending | |
-| **Day 21** | **Nov 02** | **Git Milestone & Review**<br>• Merge `feature-2-db` $\rightarrow$ `main`<br>• Create `feature-3-docker-k8s` | ⏹️ Pending | |
+| **Day 19** | **Oct 31** | **Evals Setup (Ragas Benchmark Suite)**<br>• Setup evaluation library with Gemini Judge<br>• Benchmark golden dataset across 3 categories | ✅ Completed | Built `evals.py`, tested live RAG queries, measured Faithfulness (1.0), Relevancy (0.82), and Context Precision (0.875). Completed: Nov 03, 2026. |
+| **Day 20** | **Nov 01** | **Benchmark Suite & Automated Scorecard**<br>• Automated RAG Triad execution<br>• Out-of-domain refusal testing vs factual recall | ✅ Completed | Live scorecard verified across 4 benchmark samples with production-grade thresholds. Completed: Nov 03, 2026. |
+| **Day 21** | **Nov 02** | **Git Milestone & Review**<br>• Merge `feature-1` / `feature-2` $\rightarrow$ `main`<br>• Create `feature-3-docker-k8s` | ⏹️ Pending | |
 
 ---
 
@@ -69,3 +69,18 @@
 | **Day 26** | **Nov 07** | **CI/CD Pipeline (GitHub Actions)**<br>• `.github/workflows/ci.yml` (lint, pytest, push to ECR) | ⏹️ Pending | |
 | **Day 27** | **Nov 08** | **AWS Cloud Infrastructure & Deployment**<br>• AWS ECR, RDS PostgreSQL with pgvector, ECS/EKS deployment<br>• Live cloud testing | ⏹️ Pending | |
 | **Day 28** | **Nov 09** | **Project Wrap-up & Portfolio Release**<br>• Observability (LangSmith/Langfuse)<br>• Final documentation, architecture diagram, demo video | ⏹️ Pending | |
+
+---
+
+## 📅 Week 5: Advanced Deep Dive — Enterprise Guardrails, Evals & Tier-1 Interview Prep (Days 29 – 35: Nov 10 – Nov 16)
+**Goal:** In-depth mastery of production Guardrails, comprehensive Evals, and GenAI System Design interview preparation.
+
+| Day | Date | Task / Milestone | Status | Notes / Reason |
+| :---: | :---: | :--- | :---: | :--- |
+| **Day 29** | **Nov 10** | **Advanced Guardrails Architecture (Deep Dive)**<br>• Semantic Guardrails (Llama Guard / NeMo Guardrails)<br>• Multi-turn jailbreak defenses & token streaming safety | ⏹️ Pending | |
+| **Day 30** | **Nov 11** | **Advanced PII & Compliance Architecture**<br>• Presidio / spaCy named-entity recognition (NER)<br>• PII Tokenization Vault & GDPR / DPDP right-to-be-forgotten | ⏹️ Pending | |
+| **Day 31** | **Nov 12** | **Advanced Evals (DeepEval, G-Eval & Synthetic Data)**<br>• Custom LLM rubrics (G-Eval) and continuous CI/CD evaluation<br>• Synthetic test set generation from documents | ⏹️ Pending | |
+| **Day 32** | **Nov 13** | **Hallucination Mitigation & Auditor Calibration**<br>• Calibrating Auditor sensitivity vs false positive reject rates<br>• Multi-agent debate & consensus evaluation | ⏹️ Pending | |
+| **Day 33** | **Nov 14** | **GenAI System Design Interview — Problem 1**<br>• System Design: Enterprise RAG at Scale (100M docs, sub-second latency, zero hallucination) | ⏹️ Pending | |
+| **Day 34** | **Nov 15** | **GenAI System Design Interview — Problem 2**<br>• System Design: Autonomous Evaluator-Optimizer Agents with Human-in-the-Loop Escalation | ⏹️ Pending | |
+| **Day 35** | **Nov 16** | **Full Mock Interview & Portfolio Defense**<br>• Live interview grilling on architecture, tradeoffs, failure modes, and edge cases | ⏹️ Pending | |

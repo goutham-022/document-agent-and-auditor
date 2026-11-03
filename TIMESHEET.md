@@ -31,7 +31,7 @@
 | **Day 19** | **2026-10-31** | — | 0h 00m | Missed session / Could not work | ⚠️ Missed session (0h) |
 | **Day 20** | **2026-11-01** | 08:55 - 09:25 | ~0h 30m | • Integrated `detect_prompt_injection` guardrail in `nodes.py` (`parser` node)<br>• Added conditional edge `check_guardrail` in `graph.py` routing malicious files to `END`<br>• Wired prompt injection guardrail in `rag.py` (`_check_guardrails`) before DB retrieval | ✅ Completed |
 | **Day 21** | **2026-11-02** | — | 0h 00m | Missed session / Could not work | ⚠️ Missed session (0h) |
-| **Day 22** | **2026-11-03** | 09:23 - 09:55 | ~0h 30m | • Completed `mask_pii` (emails, phone, credit card, SSN, Aadhaar) in `guardrails.py`<br>• Wired PII redaction into `nodes.py` (parser) and `rag.py` (query)<br>• Live-verified prompt injection blocking and PII masking via Swagger UI | ✅ Completed |
+| **Day 22** | **2026-11-03** | 09:23 - 10:25, 11:10 - 12:05, 16:20 - 17:25 | ~3h 00m | • Completed `mask_pii` (emails, phone, credit card, SSN, Aadhaar) in `guardrails.py`<br>• Wired PII redaction into `nodes.py` (parser) and `rag.py` (query)<br>• Live-verified prompt injection blocking and PII masking via Swagger UI<br>• Guardrails vs Evals conceptual deep dive and Ragas Triad breakdown<br>• Solved Windows asyncpg closed event loop issue in `evals.py`<br>• Built automated Ragas evaluation suite in `evals.py` with Gemini Judge<br>• Achieved 100% Faithfulness, 82.3% Relevancy, 87.5% Context Precision across 4 benchmark cases | ✅ Completed |
 
 ---
 
@@ -42,6 +42,7 @@
 | **Week 1** | Days 1 – 7 | Oct 13 – Oct 19 | 7h 00m | ~6h 25m | ✅ Finished |
 | **Week 2** | Days 8 – 14 | Oct 20 – Oct 26 | 7h 00m | ~9h 30m | 🌟 Exceeded Target |
 | **Week 3** | Days 15 – 21 | Oct 27 – Nov 02 | 7h 00m | ~6h 10m | ✅ Finished |
-| **Week 4** | Days 22 – 28 | Nov 03 – Nov 09 | 7h 00m | ~0h 30m *(Active)* | 🔄 In Progress |
+| **Week 4** | Days 22 – 28 | Nov 03 – Nov 09 | 7h 00m | ~3h 00m *(Active)* | 🔄 In Progress |
+| **Week 5** | Days 29 – 35 | Nov 10 – Nov 16 | 7h 00m | 0h 00m | ⏹️ Planned (Deep Dive & Interview Prep) |
 
 
